@@ -32,7 +32,9 @@ def analyze(request):
         analyzed = ""
         for char in djtext:
             if char != "\n" and char != "\r":
-                analyzed = analyzed + char.upper()
+                analyzed = analyzed + char
+            else:
+                analyzed = analyzed + " "
         params = {"purpose": "New Line Remove", "analyzed_text": analyzed}
         return render(request, 'analyze.html', params)
     elif(extraspaceremover == "on"):
