@@ -5,12 +5,12 @@ def index(request):
     return render(request,'index.html',params)
 
 def analyze(request):
-    djtext = request.GET.get('text','default')
-    removepunc = request.GET.get('removepunc','off')
-    fullcaps = request.GET.get('fullcaps','off')
-    newlineremover = request.GET.get('newlineremover','off')
-    extraspaceremover = request.GET.get('extraspaceremover','off')
-    countchar = request.GET.get('countchar','off') 
+    djtext = request.POST.get('text','default')
+    removepunc = request.POST.get('removepunc','off')
+    fullcaps = request.POST.get('fullcaps','off')
+    newlineremover = request.POST.get('newlineremover','off')
+    extraspaceremover = request.POST.get('extraspaceremover','off')
+    countchar = request.POST.get('countchar','off') 
     print(djtext )
     # analyzed = djtext
     punctuations = '''!()-[]{};:'"\,<>./?@#$^&*_~%'''
@@ -31,7 +31,7 @@ def analyze(request):
     elif(newlineremover == "on"):
         analyzed = ""
         for char in djtext:
-            if char != "\n":
+            if char != "\n" and char != "\r":
                 analyzed = analyzed + char.upper()
         params = {"purpose": "New Line Remove", "analyzed_text": analyzed}
         return render(request, 'analyze.html', params)
