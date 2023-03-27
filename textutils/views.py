@@ -21,14 +21,16 @@ def analyze(request):
             if char not in punctuations:
                 analyzed = analyzed + char
         params = {"purpose": "Rmoved Punctuations", "analyzed_text": analyzed}
-        return render(request, 'analyze.html', params)
-    elif(fullcaps == "on"):
+        djtext = analyzed
+        # return render(request, 'analyze.html', params)
+    if(fullcaps == "on"):
         analyzed = ""
         for char in djtext:
             analyzed = analyzed + char.upper()
         params = {"purpose": "Changed to Uppercase", "analyzed_text": analyzed}
-        return render(request, 'analyze.html', params)
-    elif(newlineremover == "on"):
+        # return render(request, 'analyze.html', params)
+        djtext = analyzed
+    if(newlineremover == "on"):
         analyzed = ""
         for char in djtext:
             if char != "\n" and char != "\r":
@@ -36,15 +38,17 @@ def analyze(request):
             else:
                 analyzed = analyzed + " "
         params = {"purpose": "New Line Remove", "analyzed_text": analyzed}
-        return render(request, 'analyze.html', params)
-    elif(extraspaceremover == "on"):
+        # return render(request, 'analyze.html', params)
+        djtext = analyzed
+    if(extraspaceremover == "on"):
         analyzed = ""
         for index,char in enumerate(djtext):
             if not(djtext[index] == " " and djtext[index + 1] == " "):
                 analyzed = analyzed + char
         params = {"purpose": "New Line Remove", "analyzed_text": analyzed}
-        return render(request, 'analyze.html', params)
-    elif(countchar == "on"):
+        # return render(request, 'analyze.html', params)
+        djtext = analyzed
+    if(countchar == "on"):
         analyzed = ""
         count = 0
         for char in djtext:
@@ -52,9 +56,11 @@ def analyze(request):
                 count += 1
         analyzed += str(count)
         params = {"purpose": "New Line Remove", "analyzed_text": analyzed}
-        return render(request, 'analyze.html', params)
-    else:
-        return HttpResponse('Error')
+        # return render(request, 'analyze.html', params)
+        djtext = analyzed
+    return render(request, 'analyze.html', params)
+    # else:
+    #     return HttpResponse('Error')
 # def capfirst(request):
 #     return HttpResponse('capfirst')
 # def newlinermove(request):
