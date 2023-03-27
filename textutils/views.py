@@ -57,7 +57,9 @@ def analyze(request):
         analyzed += str(count)
         params = {"purpose": "New Line Remove", "analyzed_text": analyzed}
         # return render(request, 'analyze.html', params)
-        djtext = analyzed
+        djtext = analyzed #don't need to declare delete all 
+    if( removepunc != 'on' and newlineremover != 'on' and extraspaceremover != 'on' and fullcaps != 'on'):
+        return HttpResponse("Please select operation")
     return render(request, 'analyze.html', params)
     # else:
     #     return HttpResponse('Error')
